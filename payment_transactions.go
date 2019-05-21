@@ -122,6 +122,9 @@ func SendTransactionRequest(input TransactionRequest) (*TransactionResponse, err
 		return nil, err
 	}
 	response, err := SendRequest(jsoned)
+	if err != nil {
+		return nil, err
+	}
 	var dat TransactionResponse
 	err = json.Unmarshal(response, &dat)
 	if err != nil {
