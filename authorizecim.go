@@ -49,6 +49,10 @@ func GetAuthentication() MerchantAuthentication {
 
 func SendRequest(input []byte) ([]byte, error) {
 	req, err := http.NewRequest("POST", api_endpoint, bytes.NewBuffer(input))
+	if err != nil {
+		return nil, err
+	}
+
 	req.Header.Set("Content-Type", "application/json")
 	client := &http.Client{}
 	resp, err := client.Do(req)

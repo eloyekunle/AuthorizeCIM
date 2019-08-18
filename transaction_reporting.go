@@ -6,11 +6,11 @@ import (
 )
 
 type Range struct {
-	Start   time.Time `"omitempty"`
-	End     time.Time `"omitempty"`
-	BatchId string    `"omitempty"`
-	Sorting Sorting   `"omitempty"`
-	Paging  Paging    `"omitempty"`
+	Start   time.Time `json:",omitempty"`
+	End     time.Time `json:",omitempty"`
+	BatchId string    `json:",omitempty"`
+	Sorting Sorting   `json:",omitempty"`
+	Paging  Paging    `json:",omitempty"`
 }
 
 func (r BatchListResponse) List() []BatchList {
@@ -31,8 +31,15 @@ func (r Range) SettledBatch() (*BatchListResponse, error) {
 		return nil, err
 	}
 	response, err := SendRequest(jsoned)
+	if err != nil {
+		return nil, err
+	}
+
 	var dat BatchListResponse
-	json.Unmarshal(response, &dat)
+	err = json.Unmarshal(response, &dat)
+	if err != nil {
+		return nil, err
+	}
 	return &dat, err
 }
 
@@ -47,6 +54,10 @@ func UnSettledBatch() (*UnsettledTransactionListResponse, error) {
 		return nil, err
 	}
 	response, err := SendRequest(jsoned)
+	if err != nil {
+		return nil, err
+	}
+
 	var dat UnsettledTransactionListResponse
 	err = json.Unmarshal(response, &dat)
 	return &dat, err
@@ -76,8 +87,15 @@ func (r Range) Transactions() (*GetTransactionListResponse, error) {
 		return nil, err
 	}
 	response, err := SendRequest(jsoned)
+	if err != nil {
+		return nil, err
+	}
+
 	var dat GetTransactionListResponse
-	json.Unmarshal(response, &dat)
+	err = json.Unmarshal(response, &dat)
+	if err != nil {
+		return nil, err
+	}
 	return &dat, err
 }
 
@@ -93,9 +111,21 @@ func (r Range) Statistics() (*Statistics, error) {
 		return nil, err
 	}
 	response, err := SendRequest(jsoned)
+	if err != nil {
+		return nil, err
+	}
+
 	var dat BatchStatisticsResponse
 	err = json.Unmarshal(response, &dat)
-	return &dat.Batch.Statistics[0], err
+	if err != nil {
+		return nil, err
+	}
+
+	if len(dat.Batch.Statistics) == 0 {
+		return nil, dat.Error()
+	}
+
+	return &dat.Batch.Statistics[0], nil
 }
 
 func GetMerchantDetails() (*MerchantDetailsResponse, error) {
@@ -109,6 +139,10 @@ func GetMerchantDetails() (*MerchantDetailsResponse, error) {
 		return nil, err
 	}
 	response, err := SendRequest(jsoned)
+	if err != nil {
+		return nil, err
+	}
+
 	var dat MerchantDetailsResponse
 	err = json.Unmarshal(response, &dat)
 	return &dat, err
@@ -118,7 +152,7 @@ func (tranx PreviousTransaction) Info() (*FullTransaction, error) {
 	new := GetTransactionDetailsRequest{
 		GetTransactionDetails: GetTransactionDetails{
 			MerchantAuthentication: GetAuthentication(),
-			TransID:                tranx.RefId,
+			TransID:                tranx.RefTransId,
 		},
 	}
 	jsoned, err := json.Marshal(new)
@@ -126,6 +160,10 @@ func (tranx PreviousTransaction) Info() (*FullTransaction, error) {
 		return nil, err
 	}
 	response, err := SendRequest(jsoned)
+	if err != nil {
+		return nil, err
+	}
+
 	var dat TransactionDetailsResponse
 	err = json.Unmarshal(response, &dat)
 	return &dat.Transaction, err

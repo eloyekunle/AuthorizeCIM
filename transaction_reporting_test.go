@@ -50,7 +50,7 @@ func TestGetTransactionList(t *testing.T) {
 func TestGetTransactionDetails(t *testing.T) {
 
 	newTransaction := PreviousTransaction{
-		RefId: "60019493304",
+		RefTransId: "60019493304",
 	}
 	response, err := newTransaction.Info()
 	if err != nil {
@@ -81,11 +81,15 @@ func TestGetUnSettledBatchList(t *testing.T) {
 func TestGetBatchStatistics(t *testing.T) {
 
 	list := Range{
-		BatchId: "6933560",
+		BatchId: "9643405",
 	}
 
 	batch, err := list.Statistics()
 	if err != nil {
+		// Batch not found isn't an error.
+		if err.(Error).ResultCode != "100004" {
+			t.SkipNow()
+		}
 		t.Log(err)
 		t.Fail()
 	}

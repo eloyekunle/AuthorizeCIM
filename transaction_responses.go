@@ -1,5 +1,7 @@
 package AuthorizeCIM
 
+import "fmt"
+
 func (transx TransactionResponse) TransactionID() string {
 	return transx.Response.TransID
 }
@@ -28,8 +30,26 @@ type TransxReponse interface {
 	Approved()
 }
 
+// Error represents an Authorize.NET error.
+type Error struct {
+	ResultCode string
+	Message    []Message
+}
+
+func (e Error) Error() string {
+	return fmt.Sprintf("resultCode: %s, messageCode: %s, messageText: %s", e.ResultCode, e.Message[0].Code, e.Message[0].Text)
+}
+
 func (r MessagesResponse) ErrorMessage() string {
 	return r.Messages.Message[0].Text
+}
+
+// Error derives an error from MessagesResponse.
+func (r MessagesResponse) Error() error {
+	return Error{
+		ResultCode: r.Messages.ResultCode,
+		Message:    r.Messages.Message,
+	}
 }
 
 func (r TransactionResponse) Approved() bool {
@@ -40,15 +60,9 @@ func (r TransactionResponse) Approved() bool {
 }
 
 func (r TransactionResponse) Held() bool {
-	if r.Response.ResponseCode == "4" {
-		return true
-	}
-	return false
+	return r.Response.ResponseCode == "4"
 }
 
 func (r MessagesResponse) Ok() bool {
-	if r.Messages.ResultCode == "Ok" {
-		return true
-	}
-	return false
+	return r.Messages.ResultCode == "Ok" && r.Messages.Message[0].Code == "I00001"
 }

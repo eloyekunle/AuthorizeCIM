@@ -25,6 +25,10 @@ func GetPaymentProfileIds(month string, method string) (*GetCustomerPaymentProfi
 		return nil, err
 	}
 	response, err := SendRequest(jsoned)
+	if err != nil {
+		return nil, err
+	}
+
 	var dat GetCustomerPaymentProfileListResponse
 	err = json.Unmarshal(response, &dat)
 	if err != nil {
@@ -111,6 +115,10 @@ func GetProfileIds() ([]string, error) {
 		return []string{}, err
 	}
 	response, err := SendRequest(jsoned)
+	if err != nil {
+		return []string{}, err
+	}
+
 	var dat CustomerProfileIdsResponse
 	err = json.Unmarshal(response, &dat)
 	if err != nil {
@@ -133,6 +141,10 @@ func ValidatePaymentProfile(customer Customer) (*ValidateCustomerPaymentProfileR
 		return nil, err
 	}
 	response, err := SendRequest(jsoned)
+	if err != nil {
+		return nil, err
+	}
+
 	var dat ValidateCustomerPaymentProfileResponse
 	err = json.Unmarshal(response, &dat)
 	if err != nil {
@@ -153,6 +165,10 @@ func GetProfile(customer Customer) (*GetCustomerProfileResponse, error) {
 		return nil, err
 	}
 	response, err := SendRequest(jsoned)
+	if err != nil {
+		return nil, err
+	}
+
 	var dat GetCustomerProfileResponse
 	err = json.Unmarshal(response, &dat)
 	if err != nil {
@@ -175,6 +191,10 @@ func CreateProfile(profile Profile) (*CustomProfileResponse, error) {
 	}
 
 	response, err := SendRequest(jsoned)
+	if err != nil {
+		return nil, err
+	}
+
 	var dat CustomProfileResponse
 	err = json.Unmarshal(response, &dat)
 	if err != nil {
@@ -196,6 +216,10 @@ func CreateShipping(profile Profile) (*CreateCustomerShippingAddressResponse, er
 		return nil, err
 	}
 	response, err := SendRequest(jsoned)
+	if err != nil {
+		return nil, err
+	}
+
 	var dat CreateCustomerShippingAddressResponse
 	err = json.Unmarshal(response, &dat)
 	if err != nil {
@@ -271,6 +295,10 @@ func MessageResponder(d interface{}) (*MessagesResponse, error) {
 		return nil, err
 	}
 	response, err := SendRequest(jsoned)
+	if err != nil {
+		return nil, err
+	}
+
 	var dat MessagesResponse
 	err = json.Unmarshal(response, &dat)
 	if err != nil {
@@ -320,6 +348,10 @@ func CreatePaymentProfile(profile CustomerPaymentProfile) (*CustomerPaymentProfi
 		return nil, err
 	}
 	response, err := SendRequest(jsoned)
+	if err != nil {
+		return nil, err
+	}
+
 	var dat CustomerPaymentProfileResponse
 	err = json.Unmarshal(response, &dat)
 	if err != nil {
@@ -452,11 +484,8 @@ type CustomerProfileIdsRequest struct {
 type CustomerProfileIdsResponse struct {
 	Ids      []string `json:"ids"`
 	Messages struct {
-		ResultCode string `json:"resultCode"`
-		Message    []struct {
-			Code string `json:"code"`
-			Text string `json:"text"`
-		} `json:"message"`
+		ResultCode string    `json:"resultCode"`
+		Message    []Message `json:"message"`
 	} `json:"messages"`
 }
 
@@ -480,20 +509,14 @@ type DeleteCustomerProfile struct {
 
 type MessagesResponse struct {
 	Messages struct {
-		ResultCode string `json:"resultCode"`
-		Message    []struct {
-			Code string `json:"code"`
-			Text string `json:"text"`
-		} `json:"message"`
+		ResultCode string    `json:"resultCode"`
+		Message    []Message `json:"message"`
 	} `json:"messages"`
 }
 
 type MessageResponse struct {
-	ResultCode string `json:"resultCode"`
-	Message    struct {
-		Code string `json:"code"`
-		Text string `json:"text"`
-	} `json:"message"`
+	ResultCode string  `json:"resultCode"`
+	Message    Message `json:"message"`
 }
 
 type CustomerPaymentProfile struct {

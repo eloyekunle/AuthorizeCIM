@@ -5,10 +5,7 @@ import (
 )
 
 func (response SubscriptionResponse) Approved() bool {
-	if response.Messages.ResultCode == "Ok" {
-		return true
-	}
-	return false
+	return response.Messages.ResultCode == "Ok"
 }
 
 func (response SubscriptionResponse) CustomerProfileId() string {
@@ -121,11 +118,8 @@ type SubscriptionResponse struct {
 		CustomerPaymentProfileID string `json:"customerPaymentProfileId"`
 	} `json:"profile"`
 	Messages struct {
-		ResultCode string `json:"resultCode"`
-		Message    []struct {
-			Code string `json:"code"`
-			Text string `json:"text"`
-		} `json:"message"`
+		ResultCode string    `json:"resultCode"`
+		Message    []Message `json:"message"`
 	} `json:"messages"`
 }
 
@@ -141,6 +135,10 @@ func SendSubscription(sub Subscription) (*SubscriptionResponse, error) {
 		return nil, err
 	}
 	response, err := SendRequest(jsoned)
+	if err != nil {
+		return nil, err
+	}
+
 	var dat SubscriptionResponse
 	err = json.Unmarshal(response, &dat)
 	if err != nil {
@@ -166,6 +164,10 @@ func UpdateSubscription(sub Subscription) (*SubscriptionResponse, error) {
 		return nil, err
 	}
 	response, err := SendRequest(jsoned)
+	if err != nil {
+		return nil, err
+	}
+
 	var dat SubscriptionResponse
 	err = json.Unmarshal(response, &dat)
 	if err != nil {
@@ -190,6 +192,10 @@ func (sub SetSubscription) Info() (*GetSubscriptionResponse, error) {
 		return nil, err
 	}
 	response, err := SendRequest(jsoned)
+	if err != nil {
+		return nil, err
+	}
+
 	var dat GetSubscriptionResponse
 	err = json.Unmarshal(response, &dat)
 	if err != nil {
@@ -199,10 +205,7 @@ func (sub SetSubscription) Info() (*GetSubscriptionResponse, error) {
 }
 
 func (s SubscriptionStatus) Active() bool {
-	if s.Status == "active" {
-		return true
-	}
-	return false
+	return s.Status == "active"
 }
 
 func (sub SetSubscription) Status() (*SubscriptionStatus, error) {
@@ -217,6 +220,10 @@ func (sub SetSubscription) Status() (*SubscriptionStatus, error) {
 		return nil, err
 	}
 	response, err := SendRequest(jsoned)
+	if err != nil {
+		return nil, err
+	}
+
 	var dat SubscriptionStatus
 	err = json.Unmarshal(response, &dat)
 	if err != nil {
@@ -237,6 +244,10 @@ func (sub SetSubscription) Cancel() (*SubscriptionCancel, error) {
 		return nil, err
 	}
 	response, err := SendRequest(jsoned)
+	if err != nil {
+		return nil, err
+	}
+
 	var dat SubscriptionCancel
 	err = json.Unmarshal(response, &dat)
 	if err != nil {
@@ -265,6 +276,10 @@ func SubscriptionList(search string) (*GetSubscriptionList, error) {
 		return nil, err
 	}
 	response, err := SendRequest(jsoned)
+	if err != nil {
+		return nil, err
+	}
+
 	var dat GetSubscriptionList
 	err = json.Unmarshal(response, &dat)
 	if err != nil {

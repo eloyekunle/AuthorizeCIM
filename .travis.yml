@@ -8,7 +8,7 @@ go:
 
 addons:
     code_climate:
-        repo_token: 6e3d45f2498bdc105ae1be00b809b02abd8222461ec037306984be92858ff3c3
+        repo_token: 81a41351c4a25caf81fbd1ba3c558eac13fc70c64119a7d7c3541e572192ce24
 
 script:
   - go get golang.org/x/tools/cmd/cover

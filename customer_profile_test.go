@@ -328,6 +328,9 @@ func TestCreateCustomerProfileFromTransaction(t *testing.T) {
 }
 
 func TestCreateSubscriptionCustomerProfile(t *testing.T) {
+	// Payment profile takes a while to be updated... Authorize.NET's fault.
+	// Related: https://community.developer.authorize.net/t5/Integration-and-Testing/Created-customer-profile-and-payment-profile-but-cant-charge/td-p/66866
+	time.Sleep(10 * time.Second)
 
 	amount := RandomNumber(5, 99) + "." + RandomNumber(10, 99)
 

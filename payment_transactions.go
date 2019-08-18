@@ -5,8 +5,7 @@ import (
 )
 
 func (tranx NewTransaction) Charge() (*TransactionResponse, error) {
-	var new TransactionRequest
-	new = TransactionRequest{
+	transactionRequest := TransactionRequest{
 		TransactionType: "authCaptureTransaction",
 		Amount:          tranx.Amount,
 		Payment: &Payment{
@@ -15,13 +14,12 @@ func (tranx NewTransaction) Charge() (*TransactionResponse, error) {
 		BillTo:   tranx.BillTo,
 		AuthCode: tranx.AuthCode,
 	}
-	response, err := SendTransactionRequest(new)
+	response, err := SendTransactionRequest(transactionRequest)
 	return response, err
 }
 
 func (tranx NewTransaction) ChargeProfile(profile Customer) (*TransactionResponse, error) {
-	var new TransactionRequest
-	new = TransactionRequest{
+	transactionRequest := TransactionRequest{
 		TransactionType: "authCaptureTransaction",
 		Amount:          tranx.Amount,
 		Profile: &Profile{
@@ -31,26 +29,24 @@ func (tranx NewTransaction) ChargeProfile(profile Customer) (*TransactionRespons
 			},
 		},
 	}
-	response, err := SendTransactionRequest(new)
+	response, err := SendTransactionRequest(transactionRequest)
 	return response, err
 }
 
 func (tranx NewTransaction) AuthOnly() (*TransactionResponse, error) {
-	var new TransactionRequest
-	new = TransactionRequest{
+	transactionRequest := TransactionRequest{
 		TransactionType: "authOnlyTransaction",
 		Amount:          tranx.Amount,
 		Payment: &Payment{
 			CreditCard: tranx.CreditCard,
 		},
 	}
-	response, err := SendTransactionRequest(new)
+	response, err := SendTransactionRequest(transactionRequest)
 	return response, err
 }
 
 func (tranx NewTransaction) Refund() (*TransactionResponse, error) {
-	var new TransactionRequest
-	new = TransactionRequest{
+	transactionRequest := TransactionRequest{
 		TransactionType: "refundTransaction",
 		Amount:          tranx.Amount,
 		RefTransId:      tranx.RefTransId,
@@ -58,27 +54,25 @@ func (tranx NewTransaction) Refund() (*TransactionResponse, error) {
 			CreditCard: tranx.CreditCard,
 		},
 	}
-	response, err := SendTransactionRequest(new)
+	response, err := SendTransactionRequest(transactionRequest)
 	return response, err
 }
 
 func (tranx PreviousTransaction) Void() (*TransactionResponse, error) {
-	var new TransactionRequest
-	new = TransactionRequest{
+	transactionRequest := TransactionRequest{
 		TransactionType: "voidTransaction",
-		RefTransId:      tranx.RefId,
+		RefTransId:      tranx.RefTransId,
 	}
-	response, err := SendTransactionRequest(new)
+	response, err := SendTransactionRequest(transactionRequest)
 	return response, err
 }
 
 func (tranx PreviousTransaction) Capture() (*TransactionResponse, error) {
-	var new TransactionRequest
-	new = TransactionRequest{
+	transactionRequest := TransactionRequest{
 		TransactionType: "priorAuthCaptureTransaction",
-		RefTransId:      tranx.RefId,
+		RefTransId:      tranx.RefTransId,
 	}
-	response, err := SendTransactionRequest(new)
+	response, err := SendTransactionRequest(transactionRequest)
 	return response, err
 }
 
@@ -143,8 +137,8 @@ type NewTransaction struct {
 }
 
 type PreviousTransaction struct {
-	RefId  string `json:"refTransId,omitempty"`
-	Amount string `json:"amount,omitempty"`
+	RefTransId string `json:"refTransId,omitempty"`
+	Amount     string `json:"amount,omitempty"`
 }
 
 type TransactionResponse struct {

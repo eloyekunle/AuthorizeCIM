@@ -1,7 +1,7 @@
-![alt tag](http://pichoster.net/images/2016/05/30/authcimyjIpi.jpg)
-
 # Authorize.net CIM, AIM, and ARB for Go Language
-[![Build Status](https://travis-ci.org/hunterlong/AuthorizeCIM.svg?branch=master)](https://travis-ci.org/hunterlong/AuthorizeCIM)  [![Code Climate](https://lima.codeclimate.com/github/Hunterlong/AuthorizeCIM/badges/gpa.svg)](https://lima.codeclimate.com/github/Hunterlong/AuthorizeCIM) [![Coverage Status](https://coveralls.io/repos/github/hunterlong/AuthorizeCIM/badge.svg?branch=master)](https://coveralls.io/github/hunterlong/AuthorizeCIM?branch=master) [![GoDoc](https://godoc.org/github.com/hunterlong/AuthorizeCIM?status.svg)](https://godoc.org/github.com/hunterlong/AuthorizeCIM) [![Go Report Card](https://goreportcard.com/badge/github.com/hunterlong/AuthorizeCIM)](https://goreportcard.com/report/github.com/hunterlong/AuthorizeCIM)
+[![Build Status](https://travis-ci.com/eloyekunle/AuthorizeCIM.svg?branch=master)](https://travis-ci.com/eloyekunle/AuthorizeCIM)  [![Code Climate](https://lima.codeclimate.com/github/eloyekunle/AuthorizeCIM/badges/gpa.svg)](https://lima.codeclimate.com/github/eloyekunle/AuthorizeCIM) [![Coverage Status](https://coveralls.io/repos/github/eloyekunle/AuthorizeCIM/badge.svg?branch=master)](https://coveralls.io/github/eloyekunle/AuthorizeCIM?branch=master) [![GoDoc](https://godoc.org/github.com/eloyekunle/AuthorizeCIM?status.svg)](https://godoc.org/github.com/eloyekunle/AuthorizeCIM) [![Go Report Card](https://goreportcard.com/badge/github.com/eloyekunle/AuthorizeCIM)](https://goreportcard.com/report/github.com/eloyekunle/AuthorizeCIM)
+
+Forked from https://github.com/hunterlong/AuthorizeCIM.
 
 Give your Go Language applications the ability to store and retrieve credit cards from Authorize.net CIM, AIM, and ARB API.
 This golang package lets you create recurring subscriptions, AUTH only transactions, voids, refunds, and other functionality connected to the Authorize.net API.
@@ -9,11 +9,11 @@ This golang package lets you create recurring subscriptions, AUTH only transacti
 ***
 
 # Features
-* [AIM Payment Transactions](https://github.com/hunterlong/AuthorizeCIM#payment-transactions)
-* [CIM Customer Information Manager](https://github.com/hunterlong/AuthorizeCIM#customer-profile)
-* [ARB Automatic Recurring Billing](https://github.com/hunterlong/AuthorizeCIM#recurring-billing) (Subscriptions)
-* [Transaction Reporting](https://github.com/hunterlong/AuthorizeCIM#transaction-reporting)
-* [Fraud Management](https://github.com/hunterlong/AuthorizeCIM#fraud-management)
+* [AIM Payment Transactions](https://github.com/eloyekunle/AuthorizeCIM#payment-transactions)
+* [CIM Customer Information Manager](https://github.com/eloyekunle/AuthorizeCIM#customer-profile)
+* [ARB Automatic Recurring Billing](https://github.com/eloyekunle/AuthorizeCIM#recurring-billing) (Subscriptions)
+* [Transaction Reporting](https://github.com/eloyekunle/AuthorizeCIM#transaction-reporting)
+* [Fraud Management](https://github.com/eloyekunle/AuthorizeCIM#fraud-management)
 * Creating Users Accounts based on user's unique ID and/or email address
 * Store Payment Profiles (credit card) on Authorize.net using Customer Information Manager (CIM)
 * Create Subscriptions (monthly, weekly, days) with Automated Recurring Billing (ARB)
@@ -39,14 +39,14 @@ subscriptions := customerInfo.Subscriptions()
 # Usage
 * Import package
 ```
-go get gopkg.in/hunterlong/authorizecim.v1
+go get gopkg.in/eloyekunle/authorizecim.v1
 ```
 ```go
-import "gopkg.in/hunterlong/authorizecim.v1"
+import "gopkg.in/eloyekunle/authorizecim.v1"
 ```
 ###### Or Shorten the Package Name
 ```go
-import auth "gopkg.in/hunterlong/authorizecim.v1"
+import auth "gopkg.in/eloyekunle/authorizecim.v1"
 // auth.SetAPIInfo(apiName,apiKey,"test")
 ```
 ***

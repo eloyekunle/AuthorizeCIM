@@ -4,6 +4,7 @@ import (
 	"math/rand"
 	"strconv"
 	"testing"
+	"time"
 )
 
 func TestCancelSubscription(t *testing.T) {
@@ -50,6 +51,9 @@ func TestCancelSecondSubscription(t *testing.T) {
 }
 
 func TestDeleteCustomerShippingProfile(t *testing.T) {
+	// Doesn't show that subscriptions have been cancelled immediately so we do this.
+	time.Sleep(20 * time.Second)
+
 	customer := Customer{
 		ID:         newCustomerProfileId,
 		ShippingID: newCustomerShippingId,
@@ -134,7 +138,7 @@ func TestDeleteSecondCustomerProfile(t *testing.T) {
 func TestDeclineTransaction(t *testing.T) {
 	oldTransaction := PreviousTransaction{
 		//Amount: "49.99",
-		RefId: heldTransactionId,
+		RefTransId: heldTransactionId,
 	}
 
 	response, err := oldTransaction.Decline()
@@ -144,7 +148,7 @@ func TestDeclineTransaction(t *testing.T) {
 	}
 
 	if response.Approved() {
-		t.Log("DECLINED the previous transasction that was on Hold. ID #", oldTransaction.RefId)
+		t.Log("DECLINED the previous transasction that was on Hold. ID #", oldTransaction.RefTransId)
 		t.Log(response.TransactionID())
 	} else {
 		t.Log(response.ErrorMessage())
