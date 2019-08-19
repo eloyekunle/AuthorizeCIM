@@ -81,7 +81,7 @@ func (response GetCustomerProfileResponse) PaymentProfiles() []GetPaymentProfile
 	return response.Profile.PaymentProfiles
 }
 
-func (response GetCustomerProfileResponse) ShippingProfiles() []GetShippingProfiles {
+func (response GetCustomerProfileResponse) ShippingProfiles() []Address {
 	return response.Profile.ShippingProfiles
 }
 
@@ -414,12 +414,12 @@ type GetCustomerProfile struct {
 
 type GetCustomerProfileResponse struct {
 	Profile struct {
-		PaymentProfiles    []GetPaymentProfiles  `json:"paymentProfiles,omitempty"`
-		ShippingProfiles   []GetShippingProfiles `json:"shipToList,omitempty"`
-		CustomerProfileID  string                `json:"customerProfileId"`
-		MerchantCustomerID string                `json:"merchantCustomerId,omitempty"`
-		Description        string                `json:"description,omitempty"`
-		Email              string                `json:"email,omitempty"`
+		PaymentProfiles    []GetPaymentProfiles `json:"paymentProfiles,omitempty"`
+		ShippingProfiles   []Address            `json:"shipToList,omitempty"`
+		CustomerProfileID  string               `json:"customerProfileId"`
+		MerchantCustomerID string               `json:"merchantCustomerId,omitempty"`
+		Description        string               `json:"description,omitempty"`
+		Email              string               `json:"email,omitempty"`
 	} `json:"profile"`
 	SubscriptionIds []string `json:"subscriptionIds"`
 	MessagesResponse
@@ -443,19 +443,6 @@ type DeleteCustomerShippingProfile struct {
 	MerchantAuthentication MerchantAuthentication `json:"merchantAuthentication"`
 	CustomerProfileID      string                 `json:"customerProfileId"`
 	CustomerShippingID     string                 `json:"customerAddressId"`
-}
-
-type GetShippingProfiles struct {
-	CustomerAddressID string `json:"customerAddressId"`
-	FirstName         string `json:"firstName,omitempty"`
-	LastName          string `json:"lastName,omitempty"`
-	Company           string `json:"company,omitempty"`
-	Address           string `json:"address,omitempty"`
-	City              string `json:"city,omitempty"`
-	State             string `json:"state,omitempty"`
-	Zip               string `json:"zip,omitempty"`
-	Country           string `json:"country,omitempty"`
-	PhoneNumber       string `json:"phoneNumber,omitempty"`
 }
 
 type GetPaymentProfiles struct {
