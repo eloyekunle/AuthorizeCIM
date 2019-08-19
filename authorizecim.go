@@ -11,21 +11,23 @@ var api_endpoint string = "https://apitest.authorize.net/xml/v1/request.api"
 var apiName *string
 var apiKey *string
 var testMode string
-var showLogs bool = true
-var connected bool = false
+var showLogs = false
+var connected = false
 
 func SetAPIInfo(name string, key string, mode string) {
 	apiKey = &key
 	apiName = &name
 	if mode == "live" {
-		showLogs = false
 		testMode = "liveMode"
 		api_endpoint = "https://api.authorize.net/xml/v1/request.api"
 	} else {
-		showLogs = true
 		testMode = "testMode"
 		api_endpoint = "https://apitest.authorize.net/xml/v1/request.api"
 	}
+}
+
+func SetLogging(value bool) {
+	showLogs = value
 }
 
 func IsConnected() (bool, error) {
