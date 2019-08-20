@@ -253,6 +253,15 @@ type TransactionDetailsResponse struct {
 	MessagesResponse
 }
 
+type BankAccount struct {
+	AccountType   int         `json:"accountType"`
+	RoutingNumber string      `json:"routingNumber"`
+	AccountNumber string      `json:"accountNumber"`
+	NameOnAccount string      `json:"nameOnAccount"`
+	EcheckType    int         `json:"echeckType"`
+	BankName      interface{} `json:"bankName"`
+}
+
 type FullTransaction struct {
 	TransID                   string    `json:"transId"`
 	SubmitTimeUTC             time.Time `json:"submitTimeUTC"`
@@ -281,16 +290,8 @@ type FullTransaction struct {
 	TaxExempt                        bool    `json:"taxExempt"`
 	TaxExemptSpecified               bool    `json:"taxExemptSpecified"`
 	Payment                          struct {
-		BankAccount struct {
-			AccountType          int         `json:"accountType"`
-			AccountTypeSpecified bool        `json:"accountTypeSpecified"`
-			RoutingNumber        string      `json:"routingNumber"`
-			AccountNumber        string      `json:"accountNumber"`
-			NameOnAccount        string      `json:"nameOnAccount"`
-			EcheckType           int         `json:"echeckType"`
-			EcheckTypeSpecified  bool        `json:"echeckTypeSpecified"`
-			BankName             interface{} `json:"bankName"`
-		} `json:"bankAccount"`
+		CreditCard  CreditCard  `json:"creditCard"`
+		BankAccount BankAccount `json:"bankAccount"`
 	} `json:"payment"`
 	RecurringBilling          bool `json:"recurringBilling"`
 	RecurringBillingSpecified bool `json:"recurringBillingSpecified"`

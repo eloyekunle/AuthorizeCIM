@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 
-	auth "github.com/eloyekunle/authorizecim"
+	auth "github.com/eloyekunle/AuthorizeCIM"
 )
 
 var newTransactionId string
@@ -16,12 +17,14 @@ func main() {
 
 	auth.SetAPIInfo(apiName, apiKey, "test")
 
-	if auth.IsConnected() {
-		fmt.Println("Connected to Authorize.net!")
+	isConnected, err := auth.IsConnected()
+	if err != nil || !isConnected {
+		os.Exit(1)
 	}
 
-	ChargeCustomer()
+	fmt.Println("Connected to Authorize.net!")
 
+	ChargeCustomer()
 	VoidTransaction()
 }
 
@@ -45,7 +48,10 @@ func ChargeCustomer() {
 			PhoneNumber: "8885555555",
 		},
 	}
-	response := newTransaction.Charge()
+	response, err := newTransaction.Charge()
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	if response.Approved() {
 		newTransactionId = response.TransactionID()
@@ -58,7 +64,11 @@ func VoidTransaction() {
 	newTransaction := auth.PreviousTransaction{
 		RefId: newTransactionId,
 	}
-	response := newTransaction.Void()
+	response, err := newTransaction.Void()
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	if response.Approved() {
 		fmt.Println("Transaction was Voided!")
 	}

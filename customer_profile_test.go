@@ -239,7 +239,7 @@ func TestCreateCustomerShippingProfile(t *testing.T) {
 		MerchantCustomerID: "86437",
 		CustomerProfileId:  newCustomerProfileId,
 		Email:              "info@" + RandomString(8) + ".com",
-		Shipping: &Address{
+		Shipping: &CustomerAddress{
 			FirstName:   "My",
 			LastName:    "Name",
 			Company:     "none",
@@ -292,7 +292,7 @@ func TestUpdateCustomerShippingProfile(t *testing.T) {
 	customer := Profile{
 		CustomerProfileId: newCustomerProfileId,
 		CustomerAddressId: newCustomerShippingId,
-		Shipping: &Address{
+		Shipping: &CustomerAddress{
 			FirstName:   "My",
 			LastName:    "Name",
 			Company:     "none",

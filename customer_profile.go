@@ -77,11 +77,11 @@ func (payment CustomerPaymentProfile) Add() (*CustomerPaymentProfileResponse, er
 	return response, err
 }
 
-func (response GetCustomerProfileResponse) PaymentProfiles() []GetPaymentProfiles {
+func (response GetCustomerProfileResponse) PaymentProfiles() []GetPaymentProfile {
 	return response.Profile.PaymentProfiles
 }
 
-func (response GetCustomerProfileResponse) ShippingProfiles() []Address {
+func (response GetCustomerProfileResponse) ShippingProfiles() []CustomerAddress {
 	return response.Profile.ShippingProfiles
 }
 
@@ -261,7 +261,7 @@ func UpdateShippingProfile(profile Profile) (*MessagesResponse, error) {
 		UpdateCustomerShippingAddress: UpdateCustomerShippingAddress{
 			CustomerProfileID:      profile.CustomerProfileId,
 			MerchantAuthentication: GetAuthentication(),
-			Address: Address{
+			Address: CustomerAddress{
 				FirstName:         "My",
 				LastName:          "Name",
 				Address:           "38485 New Road ave.",
@@ -383,7 +383,7 @@ type Profile struct {
 	CustomerProfileId  string           `json:"customerProfileId,omitempty"`
 	PaymentProfiles    *PaymentProfiles `json:"paymentProfiles,omitempty"`
 	PaymentProfileId   string           `json:"customerPaymentProfileId,omitempty"`
-	Shipping           *Address         `json:"address,omitempty"`
+	Shipping           *CustomerAddress `json:"address,omitempty"`
 	CustomerAddressId  string           `json:"customerAddressId,omitempty"`
 	PaymentProfile     *PaymentProfile  `json:"paymentProfile,omitempty"`
 }
@@ -414,12 +414,12 @@ type GetCustomerProfile struct {
 
 type GetCustomerProfileResponse struct {
 	Profile struct {
-		PaymentProfiles    []GetPaymentProfiles `json:"paymentProfiles,omitempty"`
-		ShippingProfiles   []Address            `json:"shipToList,omitempty"`
-		CustomerProfileID  string               `json:"customerProfileId"`
-		MerchantCustomerID string               `json:"merchantCustomerId,omitempty"`
-		Description        string               `json:"description,omitempty"`
-		Email              string               `json:"email,omitempty"`
+		PaymentProfiles    []GetPaymentProfile `json:"paymentProfiles,omitempty"`
+		ShippingProfiles   []CustomerAddress   `json:"shipToList,omitempty"`
+		CustomerProfileID  string              `json:"customerProfileId"`
+		MerchantCustomerID string              `json:"merchantCustomerId,omitempty"`
+		Description        string              `json:"description,omitempty"`
+		Email              string              `json:"email,omitempty"`
 	} `json:"profile"`
 	SubscriptionIds []string `json:"subscriptionIds"`
 	MessagesResponse
@@ -445,19 +445,22 @@ type DeleteCustomerShippingProfile struct {
 	CustomerShippingID     string                 `json:"customerAddressId"`
 }
 
-type GetPaymentProfiles struct {
+type GetCreditCard struct {
+	CardNumber     string `json:"cardNumber"`
+	ExpirationDate string `json:"expirationDate"`
+	CardType       string `json:"cardType"`
+	IssuerNumber   string `json:"issuerNumber"`
+	IsPaymentToken string `json:"isPaymentToken"`
+}
+
+type GetPaymentProfile struct {
 	CustomerPaymentProfileID string `json:"customerPaymentProfileId"`
 	Payment                  struct {
-		CreditCard struct {
-			CardNumber     string `json:"cardNumber"`
-			ExpirationDate string `json:"expirationDate"`
-		} `json:"creditCard"`
+		CreditCard  CreditCard  `json:"creditCard"`
+		BankAccount BankAccount `json:"bankAccount"`
 	} `json:"payment"`
-	CustomerType string `json:"customerType"`
-	BillTo       struct {
-		FirstName string `json:"firstName"`
-		LastName  string `json:"lastName"`
-	} `json:"billTo"`
+	CustomerType string  `json:"customerType"`
+	BillTo       Address `json:"billTo"`
 }
 
 type GetCustomerProfileIdsRequest struct {
@@ -580,7 +583,7 @@ type CreateCustomerShippingAddressRequest struct {
 type CreateCustomerShippingAddress struct {
 	MerchantAuthentication MerchantAuthentication `json:"merchantAuthentication"`
 	CustomerProfileID      string                 `json:"customerProfileId,omitempty"`
-	Address                *Address               `json:"address,omitempty"`
+	Address                *CustomerAddress       `json:"address,omitempty"`
 }
 
 type CreateCustomerShippingAddressResponse struct {
@@ -612,5 +615,5 @@ type UpdateCustomerShippingAddressRequest struct {
 type UpdateCustomerShippingAddress struct {
 	MerchantAuthentication MerchantAuthentication `json:"merchantAuthentication"`
 	CustomerProfileID      string                 `json:"customerProfileId"`
-	Address                Address                `json:"address"`
+	Address                CustomerAddress        `json:"address"`
 }

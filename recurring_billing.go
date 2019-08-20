@@ -308,22 +308,12 @@ type GetSubscriptionResponse struct {
 		TrialAmount float64 `json:"trialAmount"`
 		Status      string  `json:"status"`
 		Profile     struct {
-			PaymentProfile struct {
-				CustomerPaymentProfileID string `json:"customerPaymentProfileId"`
-				Payment                  struct {
-					CreditCard struct {
-						CardNumber     string `json:"cardNumber"`
-						ExpirationDate string `json:"expirationDate"`
-					} `json:"creditCard"`
-				} `json:"payment"`
-				CustomerType string `json:"customerType"`
-				BillTo       struct {
-					FirstName string `json:"firstName"`
-					LastName  string `json:"lastName"`
-				} `json:"billTo"`
-			} `json:"paymentProfile"`
-			CustomerProfileID string `json:"customerProfileId"`
-			Description       string `json:"description"`
+			MerchantCustomerID string            `json:"merchantCustomerId,omitempty"`
+			Description        string            `json:"description"`
+			Email              string            `json:"email,omitempty"`
+			CustomerProfileID  string            `json:"customerProfileId"`
+			PaymentProfile     GetPaymentProfile `json:"paymentProfile"`
+			ShipTo             CustomerAddress   `json:"shipTo,omitempty"`
 		} `json:"profile"`
 	} `json:"subscription"`
 	RefID string `json:"refId"`
