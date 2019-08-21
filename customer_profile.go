@@ -456,8 +456,8 @@ type GetCreditCard struct {
 type GetPaymentProfile struct {
 	CustomerPaymentProfileID string `json:"customerPaymentProfileId"`
 	Payment                  struct {
-		CreditCard  CreditCard  `json:"creditCard"`
-		BankAccount BankAccount `json:"bankAccount"`
+		CreditCard  *CreditCard  `json:"creditCard"`
+		BankAccount *BankAccount `json:"bankAccount"`
 	} `json:"payment"`
 	CustomerType string  `json:"customerType"`
 	BillTo       Address `json:"billTo"`
