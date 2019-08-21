@@ -254,12 +254,12 @@ type TransactionDetailsResponse struct {
 }
 
 type BankAccount struct {
-	AccountType   int         `json:"accountType"`
-	RoutingNumber string      `json:"routingNumber"`
-	AccountNumber string      `json:"accountNumber"`
-	NameOnAccount string      `json:"nameOnAccount"`
-	EcheckType    int         `json:"echeckType"`
-	BankName      interface{} `json:"bankName"`
+	AccountType   int    `json:"accountType"`
+	RoutingNumber string `json:"routingNumber"`
+	AccountNumber string `json:"accountNumber"`
+	NameOnAccount string `json:"nameOnAccount"`
+	EcheckType    int    `json:"echeckType"`
+	BankName      string `json:"bankName"`
 }
 
 type FullTransaction struct {
