@@ -141,7 +141,7 @@ func TestCreateCustomerPaymentProfile(t *testing.T) {
 
 }
 
-func TestGetCustomerPaymentProfile(t *testing.T) {
+func TestGetCustomerPaymentProfiles(t *testing.T) {
 
 	customer := Customer{
 		ID: newCustomerProfileId,
@@ -160,6 +160,20 @@ func TestGetCustomerPaymentProfile(t *testing.T) {
 		t.Fail()
 	}
 
+}
+
+func TestGetCustomerPaymentProfile(t *testing.T) {
+	paymentProfile, err := GetPaymentProfileRequest(GetCustomerPaymentProfileRequest{
+		CustomerProfileID:        newCustomerProfileId,
+		CustomerPaymentProfileID: newCustomerPaymentId,
+	})
+
+	if err != nil {
+		t.Log(err)
+		t.Fail()
+	}
+
+	t.Log("Customer Payment Profiles", paymentProfile)
 }
 
 func TestGetCustomerPaymentProfileList(t *testing.T) {

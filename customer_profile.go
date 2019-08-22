@@ -360,6 +360,27 @@ func CreatePaymentProfile(profile CustomerPaymentProfile) (*CustomerPaymentProfi
 	return &dat, err
 }
 
+func GetPaymentProfileRequest(request GetCustomerPaymentProfileRequest) (*GetPaymentProfile, error) {
+	request.MerchantAuthentication = GetAuthentication()
+
+	action := GetCustomerPaymentProfile{GetCustomerPaymentProfileRequest: request}
+	jsoned, err := json.Marshal(action)
+	if err != nil {
+		return nil, err
+	}
+	response, err := SendRequest(jsoned)
+	if err != nil {
+		return nil, err
+	}
+
+	var dat GetPaymentProfile
+	err = json.Unmarshal(response, &dat)
+	if err != nil {
+		return nil, err
+	}
+	return &dat, err
+}
+
 type CreateCustomerProfileRequest struct {
 	CreateCustomerProfile CreateCustomerProfile `json:"createCustomerProfileRequest"`
 }
@@ -513,6 +534,19 @@ type MessageResponse struct {
 type CustomerPaymentProfile struct {
 	CustomerProfileID string         `json:"customerProfileId"`
 	PaymentProfile    PaymentProfile `json:"paymentProfile"`
+}
+
+type GetCustomerPaymentProfile struct {
+	GetCustomerPaymentProfileRequest GetCustomerPaymentProfileRequest `json:"getCustomerPaymentProfileRequest"`
+}
+
+type GetCustomerPaymentProfileRequest struct {
+	MerchantAuthentication   MerchantAuthentication `json:"merchantAuthentication"`
+	RefID                    string                 `json:"refId,omitempty"`
+	CustomerProfileID        string                 `json:"customerProfileId"`
+	CustomerPaymentProfileID string                 `json:"customerPaymentProfileId"`
+	UnmaskExpirationDate     bool                   `json:"unmaskExpirationDate,omitempty"`
+	IncludeIssuerInfo        bool                   `json:"includeIssuerInfo,omitempty"`
 }
 
 type CreateCustomerPaymentProfile struct {
