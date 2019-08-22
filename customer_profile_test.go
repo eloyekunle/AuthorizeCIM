@@ -173,7 +173,7 @@ func TestGetCustomerPaymentProfile(t *testing.T) {
 		t.Fail()
 	}
 
-	t.Log("Customer Payment Profiles", paymentProfile)
+	t.Log("Customer Payment Profile", paymentProfile)
 }
 
 func TestGetCustomerPaymentProfileList(t *testing.T) {

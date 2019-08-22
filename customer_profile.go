@@ -360,7 +360,7 @@ func CreatePaymentProfile(profile CustomerPaymentProfile) (*CustomerPaymentProfi
 	return &dat, err
 }
 
-func GetPaymentProfileRequest(request GetCustomerPaymentProfileRequest) (*GetPaymentProfile, error) {
+func GetPaymentProfileRequest(request GetCustomerPaymentProfileRequest) (*GetCustomerPaymentProfileResponse, error) {
 	request.MerchantAuthentication = GetAuthentication()
 
 	action := GetCustomerPaymentProfile{GetCustomerPaymentProfileRequest: request}
@@ -373,7 +373,7 @@ func GetPaymentProfileRequest(request GetCustomerPaymentProfileRequest) (*GetPay
 		return nil, err
 	}
 
-	var dat GetPaymentProfile
+	var dat GetCustomerPaymentProfileResponse
 	err = json.Unmarshal(response, &dat)
 	if err != nil {
 		return nil, err
@@ -442,6 +442,22 @@ type GetCustomerProfileResponse struct {
 		Description        string              `json:"description,omitempty"`
 		Email              string              `json:"email,omitempty"`
 	} `json:"profile"`
+	SubscriptionIds []string `json:"subscriptionIds"`
+	MessagesResponse
+}
+
+type GetCustomerPaymentProfileResponse struct {
+	PaymentProfile struct {
+		DefaultPaymentProfile    bool    `json:"defaultPaymentProfile"`
+		CustomerProfileId        string  `json:"customerProfileId"`
+		CustomerPaymentProfileId string  `json:"customerPaymentProfileId"`
+		CustomerType             string  `json:"customerType"`
+		BillTo                   Address `json:"billTo"`
+		Payment                  struct {
+			CreditCard  *GetCreditCard `json:"creditCard"`
+			BankAccount *BankAccount   `json:"bankAccount"`
+		} `json:"payment"`
+	} `json:"paymentProfile"`
 	SubscriptionIds []string `json:"subscriptionIds"`
 	MessagesResponse
 }
