@@ -448,18 +448,20 @@ type GetCustomerProfileResponse struct {
 
 type GetCustomerPaymentProfileResponse struct {
 	PaymentProfile struct {
-		DefaultPaymentProfile    bool    `json:"defaultPaymentProfile"`
-		CustomerProfileId        string  `json:"customerProfileId"`
-		CustomerPaymentProfileId string  `json:"customerPaymentProfileId"`
-		CustomerType             string  `json:"customerType"`
-		BillTo                   Address `json:"billTo"`
-		Payment                  struct {
-			CreditCard  *GetCreditCard `json:"creditCard"`
-			BankAccount *BankAccount   `json:"bankAccount"`
-		} `json:"payment"`
+		DefaultPaymentProfile    bool       `json:"defaultPaymentProfile"`
+		CustomerProfileId        string     `json:"customerProfileId"`
+		CustomerPaymentProfileId string     `json:"customerPaymentProfileId"`
+		CustomerType             string     `json:"customerType"`
+		BillTo                   Address    `json:"billTo"`
+		Payment                  GetPayment `json:"payment"`
 	} `json:"paymentProfile"`
 	SubscriptionIds []string `json:"subscriptionIds"`
 	MessagesResponse
+}
+
+type GetPayment struct {
+	CreditCard  *GetCreditCard `json:"creditCard"`
+	BankAccount *BankAccount   `json:"bankAccount"`
 }
 
 type DeleteCustomerPaymentProfileRequest struct {
@@ -491,14 +493,11 @@ type GetCreditCard struct {
 }
 
 type GetPaymentProfile struct {
-	CustomerPaymentProfileID string `json:"customerPaymentProfileId"`
-	Payment                  struct {
-		CreditCard  *GetCreditCard `json:"creditCard"`
-		BankAccount *BankAccount   `json:"bankAccount"`
-	} `json:"payment"`
-	DefaultPaymentProfile bool    `json:"defaultPaymentProfile"`
-	CustomerType          string  `json:"customerType"`
-	BillTo                Address `json:"billTo"`
+	CustomerPaymentProfileID string     `json:"customerPaymentProfileId"`
+	Payment                  GetPayment `json:"payment"`
+	DefaultPaymentProfile    bool       `json:"defaultPaymentProfile"`
+	CustomerType             string     `json:"customerType"`
+	BillTo                   Address    `json:"billTo"`
 }
 
 type GetCustomerProfileIdsRequest struct {
