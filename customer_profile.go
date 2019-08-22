@@ -447,15 +447,8 @@ type GetCustomerProfileResponse struct {
 }
 
 type GetCustomerPaymentProfileResponse struct {
-	PaymentProfile struct {
-		DefaultPaymentProfile    bool       `json:"defaultPaymentProfile"`
-		CustomerProfileId        string     `json:"customerProfileId"`
-		CustomerPaymentProfileId string     `json:"customerPaymentProfileId"`
-		CustomerType             string     `json:"customerType"`
-		BillTo                   Address    `json:"billTo"`
-		Payment                  GetPayment `json:"payment"`
-	} `json:"paymentProfile"`
-	SubscriptionIds []string `json:"subscriptionIds"`
+	PaymentProfile  GetPaymentProfile `json:"paymentProfile"`
+	SubscriptionIds []string          `json:"subscriptionIds"`
 	MessagesResponse
 }
 
@@ -493,6 +486,7 @@ type GetCreditCard struct {
 }
 
 type GetPaymentProfile struct {
+	CustomerProfileId        string     `json:"customerProfileId"`
 	CustomerPaymentProfileID string     `json:"customerPaymentProfileId"`
 	Payment                  GetPayment `json:"payment"`
 	DefaultPaymentProfile    bool       `json:"defaultPaymentProfile"`
