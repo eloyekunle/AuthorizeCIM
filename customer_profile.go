@@ -247,6 +247,7 @@ func UpdatePaymentProfile(profile Profile) (*MessagesResponse, error) {
 			UpPaymentProfile: UpPaymentProfile{
 				BillTo:                   profile.PaymentProfiles.BillTo,
 				Payment:                  profile.PaymentProfiles.Payment,
+				DefaultPaymentProfile:    profile.PaymentProfiles.DefaultPaymentProfile,
 				CustomerPaymentProfileID: profile.PaymentProfileId,
 			},
 			ValidationMode: testMode,
@@ -410,10 +411,11 @@ type Profile struct {
 }
 
 type PaymentProfiles struct {
-	CustomerType string  `json:"customerType,omitempty"`
-	BillTo       *BillTo `json:"billTo,omitempty"`
-	Payment      Payment `json:"payment,omitempty"`
-	PaymentId    string  `json:"paymentProfileId,omitempty"`
+	CustomerType          string  `json:"customerType,omitempty"`
+	BillTo                *BillTo `json:"billTo,omitempty"`
+	Payment               Payment `json:"payment,omitempty"`
+	DefaultPaymentProfile bool    `json:"defaultPaymentProfile,omitempty"`
+	PaymentId             string  `json:"paymentProfileId,omitempty"`
 }
 
 type CustomProfileResponse struct {
@@ -646,6 +648,7 @@ type UpPaymentProfile struct {
 	BillTo                   *BillTo `json:"billTo"`
 	Payment                  Payment `json:"payment"`
 	CustomerPaymentProfileID string  `json:"customerPaymentProfileId"`
+	DefaultPaymentProfile    bool    `json:"defaultPaymentProfile"`
 }
 
 type UpdateCustomerShippingAddressRequest struct {
