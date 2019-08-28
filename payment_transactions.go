@@ -199,12 +199,6 @@ type Payment struct {
 	BankAccount *BankAccount `json:"bankAccount,omitempty"`
 }
 
-type CreditCard struct {
-	CardNumber     string `json:"cardNumber,omitempty"`
-	ExpirationDate string `json:"expirationDate,omitempty"`
-	CardCode       string `json:"cardCode,omitempty"`
-}
-
 type LineItems struct {
 	LineItem []LineItem `json:"lineItem,omitempty"`
 }

@@ -452,11 +452,6 @@ type GetCustomerPaymentProfileResponse struct {
 	MessagesResponse
 }
 
-type GetPayment struct {
-	CreditCard  *GetCreditCard `json:"creditCard"`
-	BankAccount *BankAccount   `json:"bankAccount"`
-}
-
 type DeleteCustomerPaymentProfileRequest struct {
 	DeleteCustomerPaymentProfile DeleteCustomerPaymentProfile `json:"deleteCustomerPaymentProfileRequest"`
 }
@@ -477,21 +472,22 @@ type DeleteCustomerShippingProfile struct {
 	CustomerShippingID     string                 `json:"customerAddressId"`
 }
 
-type GetCreditCard struct {
-	CardNumber     string `json:"cardNumber"`
-	ExpirationDate string `json:"expirationDate"`
-	CardType       string `json:"cardType"`
-	IssuerNumber   string `json:"issuerNumber"`
-	IsPaymentToken string `json:"isPaymentToken"`
+type CreditCard struct {
+	CardNumber     string `json:"cardNumber,omitempty"`
+	ExpirationDate string `json:"expirationDate,omitempty"`
+	CardCode       string `json:"cardCode,omitempty"`
+	CardType       string `json:"cardType,omitempty"`
+	IssuerNumber   string `json:"issuerNumber,omitempty"`
+	IsPaymentToken string `json:"isPaymentToken,omitempty"`
 }
 
 type GetPaymentProfile struct {
-	CustomerProfileId        string     `json:"customerProfileId"`
-	CustomerPaymentProfileID string     `json:"customerPaymentProfileId"`
-	Payment                  GetPayment `json:"payment"`
-	DefaultPaymentProfile    bool       `json:"defaultPaymentProfile"`
-	CustomerType             string     `json:"customerType"`
-	BillTo                   BillTo     `json:"billTo"`
+	CustomerProfileId        string  `json:"customerProfileId"`
+	CustomerPaymentProfileID string  `json:"customerPaymentProfileId"`
+	Payment                  Payment `json:"payment"`
+	DefaultPaymentProfile    bool    `json:"defaultPaymentProfile"`
+	CustomerType             string  `json:"customerType"`
+	BillTo                   BillTo  `json:"billTo"`
 }
 
 type GetCustomerProfileIdsRequest struct {
