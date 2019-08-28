@@ -195,7 +195,8 @@ type CreateTransactionRequest struct {
 }
 
 type Payment struct {
-	CreditCard CreditCard `json:"creditCard,omitempty"`
+	CreditCard  CreditCard  `json:"creditCard,omitempty"`
+	BankAccount BankAccount `json:"bankAccount,omitempty"`
 }
 
 type CreditCard struct {
