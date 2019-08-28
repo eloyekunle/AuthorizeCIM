@@ -258,7 +258,7 @@ type BankAccount struct {
 	RoutingNumber string `json:"routingNumber"`
 	AccountNumber string `json:"accountNumber"`
 	NameOnAccount string `json:"nameOnAccount"`
-	EcheckType    int    `json:"echeckType"`
+	EcheckType    string `json:"echeckType"`
 	BankName      string `json:"bankName"`
 }
 
