@@ -88,17 +88,6 @@ type Subscription struct {
 	Profile         *CustomerProfiler `json:"profile,omitempty"`
 }
 
-type BillTo struct {
-	FirstName   string `json:"firstName,omitempty"`
-	LastName    string `json:"lastName,omitempty"`
-	Address     string `json:"address,omitempty"`
-	City        string `json:"city,omitempty"`
-	State       string `json:"state,omitempty"`
-	Zip         string `json:"zip,omitempty"`
-	Country     string `json:"country,omitempty"`
-	PhoneNumber string `json:"phoneNumber,omitempty"`
-}
-
 type PaymentSchedule struct {
 	Interval         Interval `json:"interval,omitempty"`
 	StartDate        string   `json:"startDate,omitempty"`

@@ -491,7 +491,7 @@ type GetPaymentProfile struct {
 	Payment                  GetPayment `json:"payment"`
 	DefaultPaymentProfile    bool       `json:"defaultPaymentProfile"`
 	CustomerType             string     `json:"customerType"`
-	BillTo                   Address    `json:"billTo"`
+	BillTo                   BillTo     `json:"billTo"`
 }
 
 type GetCustomerProfileIdsRequest struct {

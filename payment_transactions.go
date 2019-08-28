@@ -295,7 +295,7 @@ type CustomerAddress struct {
 	CustomerAddressID string `json:"customerAddressId,omitempty"`
 }
 
-type Address struct {
+type BillTo struct {
 	FirstName   string `json:"firstName,omitempty"`
 	LastName    string `json:"lastName,omitempty"`
 	Company     string `json:"company,omitempty"`
