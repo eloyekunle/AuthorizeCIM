@@ -571,7 +571,7 @@ type CreateCustomerPaymentProfileRequest struct {
 type PaymentProfile struct {
 	BillTo                *BillTo  `json:"billTo,omitempty"`
 	Payment               *Payment `json:"payment,omitempty"`
-	DefaultPaymentProfile string   `json:"defaultPaymentProfile,omitempty"`
+	DefaultPaymentProfile bool     `json:"defaultPaymentProfile,omitempty"`
 	PaymentProfileId      string   `json:"paymentProfileId,omitempty"`
 }
 

@@ -122,7 +122,7 @@ func TestCreateCustomerPaymentProfile(t *testing.T) {
 					ExpirationDate: "04/22",
 				},
 			},
-			DefaultPaymentProfile: "true",
+			DefaultPaymentProfile: true,
 		},
 	}
 
