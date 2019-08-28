@@ -9,7 +9,7 @@ func (tranx NewTransaction) Charge() (*TransactionResponse, error) {
 		TransactionType: "authCaptureTransaction",
 		Amount:          tranx.Amount,
 		Payment: &Payment{
-			CreditCard: tranx.CreditCard,
+			CreditCard: &tranx.CreditCard,
 		},
 		BillTo:   tranx.BillTo,
 		AuthCode: tranx.AuthCode,
@@ -38,7 +38,7 @@ func (tranx NewTransaction) AuthOnly() (*TransactionResponse, error) {
 		TransactionType: "authOnlyTransaction",
 		Amount:          tranx.Amount,
 		Payment: &Payment{
-			CreditCard: tranx.CreditCard,
+			CreditCard: &tranx.CreditCard,
 		},
 	}
 	response, err := SendTransactionRequest(transactionRequest)
@@ -51,7 +51,7 @@ func (tranx NewTransaction) Refund() (*TransactionResponse, error) {
 		Amount:          tranx.Amount,
 		RefTransId:      tranx.RefTransId,
 		Payment: &Payment{
-			CreditCard: tranx.CreditCard,
+			CreditCard: &tranx.CreditCard,
 		},
 	}
 	response, err := SendTransactionRequest(transactionRequest)
@@ -195,8 +195,8 @@ type CreateTransactionRequest struct {
 }
 
 type Payment struct {
-	CreditCard  CreditCard  `json:"creditCard,omitempty"`
-	BankAccount BankAccount `json:"bankAccount,omitempty"`
+	CreditCard  *CreditCard  `json:"creditCard,omitempty"`
+	BankAccount *BankAccount `json:"bankAccount,omitempty"`
 }
 
 type CreditCard struct {
