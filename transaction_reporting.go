@@ -254,7 +254,7 @@ type TransactionDetailsResponse struct {
 }
 
 type BankAccount struct {
-	AccountType   int    `json:"accountType"`
+	AccountType   string `json:"accountType"`
 	RoutingNumber string `json:"routingNumber"`
 	AccountNumber string `json:"accountNumber"`
 	NameOnAccount string `json:"nameOnAccount"`
