@@ -35,12 +35,13 @@ func TestIsConnected(t *testing.T) {
 }
 
 func TestCreateCustomerProfile(t *testing.T) {
+	customerType := "individual"
 
 	customer := Profile{
 		MerchantCustomerID: RandomNumber(1000, 9999),
 		Email:              "info@" + RandomString(8) + ".com",
 		PaymentProfiles: &PaymentProfiles{
-			CustomerType: "individual",
+			CustomerType: &customerType,
 			Payment: Payment{
 				CreditCard: &CreditCard{
 					CardNumber:     "4007000000027",
