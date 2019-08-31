@@ -339,6 +339,7 @@ func CreatePaymentProfile(profile CustomerPaymentProfile) (*CustomerPaymentProfi
 			MerchantAuthentication: GetAuthentication(),
 			CustomerProfileID:      profile.CustomerProfileID,
 			PaymentProfile: PaymentProfile{
+				CustomerType:          profile.PaymentProfile.CustomerType,
 				BillTo:                profile.PaymentProfile.BillTo,
 				Payment:               profile.PaymentProfile.Payment,
 				DefaultPaymentProfile: profile.PaymentProfile.DefaultPaymentProfile,
@@ -568,6 +569,7 @@ type CreateCustomerPaymentProfileRequest struct {
 }
 
 type PaymentProfile struct {
+	CustomerType          *string  `json:"customerType,omitempty"`
 	BillTo                *BillTo  `json:"billTo,omitempty"`
 	Payment               *Payment `json:"payment,omitempty"`
 	DefaultPaymentProfile bool     `json:"defaultPaymentProfile,omitempty"`
