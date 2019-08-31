@@ -32,10 +32,12 @@ func ChargeCustomer() {
 
 	newTransaction := auth.NewTransaction{
 		Amount: "13.75",
-		CreditCard: auth.CreditCard{
-			CardNumber:     "4012888818888",
-			ExpirationDate: "08/25",
-			CardCode:       "393",
+		Payment: &auth.Payment{
+			CreditCard: &auth.CreditCard{
+				CardNumber:     "4012888818888",
+				ExpirationDate: "08/25",
+				CardCode:       "393",
+			},
 		},
 		BillTo: &auth.BillTo{
 			FirstName:   "Timmy",
@@ -62,7 +64,7 @@ func ChargeCustomer() {
 func VoidTransaction() {
 
 	newTransaction := auth.PreviousTransaction{
-		RefId: newTransactionId,
+		RefTransId: newTransactionId,
 	}
 	response, err := newTransaction.Void()
 	if err != nil {

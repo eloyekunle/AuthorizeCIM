@@ -11,9 +11,11 @@ var heldTransactionId string
 func TestChargeCard(t *testing.T) {
 	newTransaction := NewTransaction{
 		Amount: "15.90",
-		CreditCard: CreditCard{
-			CardNumber:     "4007000000027",
-			ExpirationDate: "10/23",
+		Payment: &Payment{
+			CreditCard: &CreditCard{
+				CardNumber:     "4007000000027",
+				ExpirationDate: "10/23",
+			},
 		},
 	}
 	response, err := newTransaction.Charge()
@@ -34,9 +36,11 @@ func TestChargeCard(t *testing.T) {
 func TestAVSDeclinedChargeCard(t *testing.T) {
 	newTransaction := NewTransaction{
 		Amount: RandomNumber(5, 99) + ".75",
-		CreditCard: CreditCard{
-			CardNumber:     "5424000000000015",
-			ExpirationDate: "08/" + RandomNumber(20, 27),
+		Payment: &Payment{
+			CreditCard: &CreditCard{
+				CardNumber:     "5424000000000015",
+				ExpirationDate: "08/" + RandomNumber(20, 27),
+			},
 		},
 		BillTo: &BillTo{
 			FirstName:   RandomString(7),
@@ -70,9 +74,11 @@ func TestAVSDeclinedChargeCard(t *testing.T) {
 func TestAVSChargeCard(t *testing.T) {
 	newTransaction := NewTransaction{
 		Amount: RandomNumber(5, 99) + ".75",
-		CreditCard: CreditCard{
-			CardNumber:     "4012888818888",
-			ExpirationDate: "08/" + RandomNumber(20, 27),
+		Payment: &Payment{
+			CreditCard: &CreditCard{
+				CardNumber:     "4012888818888",
+				ExpirationDate: "08/" + RandomNumber(20, 27),
+			},
 		},
 		BillTo: &BillTo{
 			FirstName:   RandomString(7),
@@ -114,9 +120,11 @@ func TestAVSChargeCard(t *testing.T) {
 func TestDeclinedChargeCard(t *testing.T) {
 	newTransaction := NewTransaction{
 		Amount: RandomNumber(5, 99) + ".90",
-		CreditCard: CreditCard{
-			CardNumber:     "4007000000027",
-			ExpirationDate: "10/23",
+		Payment: &Payment{
+			CreditCard: &CreditCard{
+				CardNumber:     "4007000000027",
+				ExpirationDate: "10/23",
+			},
 		},
 		BillTo: &BillTo{
 			FirstName:   "Declined",
@@ -149,9 +157,11 @@ func TestDeclinedChargeCard(t *testing.T) {
 func TestAuthOnlyCard(t *testing.T) {
 	newTransaction := NewTransaction{
 		Amount: "100.00",
-		CreditCard: CreditCard{
-			CardNumber:     "4012888818888",
-			ExpirationDate: "10/27",
+		Payment: &Payment{
+			CreditCard: &CreditCard{
+				CardNumber:     "4012888818888",
+				ExpirationDate: "10/27",
+			},
 		},
 	}
 	response, err := newTransaction.AuthOnly()
@@ -186,9 +196,11 @@ func TestCaptureAuth(t *testing.T) {
 func TestChargeCardChannel(t *testing.T) {
 	newTransaction := NewTransaction{
 		Amount: "38.00",
-		CreditCard: CreditCard{
-			CardNumber:     "4012888818888",
-			ExpirationDate: "10/24",
+		Payment: &Payment{
+			CreditCard: &CreditCard{
+				CardNumber:     "4012888818888",
+				ExpirationDate: "10/24",
+			},
 		},
 		AuthCode: "RANDOMAUTHCODE",
 	}
@@ -208,9 +220,11 @@ func TestChargeCardChannel(t *testing.T) {
 func TestRefundCard(t *testing.T) {
 	newTransaction := NewTransaction{
 		Amount: "15.00",
-		CreditCard: CreditCard{
-			CardNumber:     "4012888818888",
-			ExpirationDate: "10/24",
+		Payment: &Payment{
+			CreditCard: &CreditCard{
+				CardNumber:     "4012888818888",
+				ExpirationDate: "10/24",
+			},
 		},
 		RefTransId: "0392482938402",
 	}

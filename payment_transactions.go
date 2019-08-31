@@ -8,11 +8,9 @@ func (tranx NewTransaction) Charge() (*TransactionResponse, error) {
 	transactionRequest := TransactionRequest{
 		TransactionType: "authCaptureTransaction",
 		Amount:          tranx.Amount,
-		Payment: &Payment{
-			CreditCard: &tranx.CreditCard,
-		},
-		BillTo:   tranx.BillTo,
-		AuthCode: tranx.AuthCode,
+		Payment:         tranx.Payment,
+		BillTo:          tranx.BillTo,
+		AuthCode:        tranx.AuthCode,
 	}
 	response, err := SendTransactionRequest(transactionRequest)
 	return response, err
@@ -37,9 +35,7 @@ func (tranx NewTransaction) AuthOnly() (*TransactionResponse, error) {
 	transactionRequest := TransactionRequest{
 		TransactionType: "authOnlyTransaction",
 		Amount:          tranx.Amount,
-		Payment: &Payment{
-			CreditCard: &tranx.CreditCard,
-		},
+		Payment:         tranx.Payment,
 	}
 	response, err := SendTransactionRequest(transactionRequest)
 	return response, err
@@ -50,9 +46,7 @@ func (tranx NewTransaction) Refund() (*TransactionResponse, error) {
 		TransactionType: "refundTransaction",
 		Amount:          tranx.Amount,
 		RefTransId:      tranx.RefTransId,
-		Payment: &Payment{
-			CreditCard: &tranx.CreditCard,
-		},
+		Payment:         tranx.Payment,
 	}
 	response, err := SendTransactionRequest(transactionRequest)
 	return response, err
@@ -128,12 +122,12 @@ func SendTransactionRequest(input TransactionRequest) (*TransactionResponse, err
 }
 
 type NewTransaction struct {
-	Amount     string     `json:"amount,omitempty"`
-	InvoiceId  string     `json:"invoiceId,omitempty"`
-	RefTransId string     `json:"refTransId,omitempty"`
-	CreditCard CreditCard `json:"payment,omitempty"`
-	AuthCode   string     `json:"authCode,omitempty"`
-	BillTo     *BillTo    `json:"omitempty"`
+	Amount     string   `json:"amount,omitempty"`
+	InvoiceId  string   `json:"invoiceId,omitempty"`
+	RefTransId string   `json:"refTransId,omitempty"`
+	Payment    *Payment `json:"payment,omitempty"`
+	AuthCode   string   `json:"authCode,omitempty"`
+	BillTo     *BillTo  `json:"omitempty"`
 }
 
 type PreviousTransaction struct {
