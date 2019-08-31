@@ -553,7 +553,7 @@ type GetCustomerPaymentProfileRequest struct {
 	MerchantAuthentication   MerchantAuthentication `json:"merchantAuthentication"`
 	RefID                    string                 `json:"refId,omitempty"`
 	CustomerProfileID        string                 `json:"customerProfileId"`
-	CustomerPaymentProfileID string                 `json:"customerPaymentProfileId"`
+	CustomerPaymentProfileID string                 `json:"customerPaymentProfileId,omitempty"`
 	UnmaskExpirationDate     bool                   `json:"unmaskExpirationDate,omitempty"`
 	IncludeIssuerInfo        bool                   `json:"includeIssuerInfo,omitempty"`
 }
