@@ -64,7 +64,7 @@ func ChargeCustomer() {
 func VoidTransaction() {
 
 	newTransaction := auth.PreviousTransaction{
-		RefTransId: newTransactionId,
+		TransId: newTransactionId,
 	}
 	response, err := newTransaction.Void()
 	if err != nil {

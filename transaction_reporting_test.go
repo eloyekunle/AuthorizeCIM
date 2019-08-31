@@ -50,7 +50,7 @@ func TestGetTransactionList(t *testing.T) {
 func TestGetTransactionDetails(t *testing.T) {
 
 	newTransaction := PreviousTransaction{
-		RefTransId: "60019493304",
+		TransId: "60019493304",
 	}
 	response, err := newTransaction.Info()
 	if err != nil {

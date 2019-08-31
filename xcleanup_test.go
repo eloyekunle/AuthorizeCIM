@@ -138,7 +138,7 @@ func TestDeleteSecondCustomerProfile(t *testing.T) {
 func TestDeclineTransaction(t *testing.T) {
 	oldTransaction := PreviousTransaction{
 		//Amount: "49.99",
-		RefTransId: heldTransactionId,
+		TransId: heldTransactionId,
 	}
 
 	response, err := oldTransaction.Decline()
@@ -148,7 +148,7 @@ func TestDeclineTransaction(t *testing.T) {
 	}
 
 	if response.Approved() {
-		t.Log("DECLINED the previous transasction that was on Hold. ID #", oldTransaction.RefTransId)
+		t.Log("DECLINED the previous transasction that was on Hold. ID #", oldTransaction.TransId)
 		t.Log(response.TransactionID())
 	} else {
 		t.Log(response.ErrorMessage())

@@ -55,7 +55,7 @@ func (tranx NewTransaction) Refund() (*TransactionResponse, error) {
 func (tranx PreviousTransaction) Void() (*TransactionResponse, error) {
 	transactionRequest := TransactionRequest{
 		TransactionType: "voidTransaction",
-		RefTransId:      tranx.RefTransId,
+		RefTransId:      tranx.TransId,
 	}
 	response, err := SendTransactionRequest(transactionRequest)
 	return response, err
@@ -64,7 +64,7 @@ func (tranx PreviousTransaction) Void() (*TransactionResponse, error) {
 func (tranx PreviousTransaction) Capture() (*TransactionResponse, error) {
 	transactionRequest := TransactionRequest{
 		TransactionType: "priorAuthCaptureTransaction",
-		RefTransId:      tranx.RefTransId,
+		RefTransId:      tranx.TransId,
 	}
 	response, err := SendTransactionRequest(transactionRequest)
 	return response, err
@@ -131,8 +131,8 @@ type NewTransaction struct {
 }
 
 type PreviousTransaction struct {
-	RefTransId string `json:"refTransId,omitempty"`
-	Amount     string `json:"amount,omitempty"`
+	TransId string `json:"refTransId,omitempty"`
+	Amount  string `json:"amount,omitempty"`
 }
 
 type TransactionResponse struct {

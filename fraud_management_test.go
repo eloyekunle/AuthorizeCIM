@@ -16,8 +16,8 @@ func TestGetUnsettledTransactions(t *testing.T) {
 
 func TestApproveTransaction(t *testing.T) {
 	oldTransaction := PreviousTransaction{
-		Amount:     "49.99",
-		RefTransId: "39824723983",
+		Amount:  "49.99",
+		TransId: "39824723983",
 	}
 
 	response, err := oldTransaction.Approve()
@@ -34,8 +34,8 @@ func TestApproveTransaction(t *testing.T) {
 
 func TestDeclineTransaction2(t *testing.T) {
 	oldTransaction := PreviousTransaction{
-		Amount:     "49.99",
-		RefTransId: "39824723983",
+		Amount:  "49.99",
+		TransId: "39824723983",
 	}
 
 	response, err := oldTransaction.Decline()
