@@ -392,7 +392,7 @@ customer := AuthorizeCIM.Profile{
 		},
 	}
 
-	response, err := customer.Create()
+	response, err := customer.CreateProfile()
 
 if response.Ok() {
     fmt.Println("New Customer Profile Created #",response.CustomerProfileID)
