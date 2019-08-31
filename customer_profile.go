@@ -651,8 +651,8 @@ type UpPaymentProfile struct {
 	CustomerType             *string `json:"customerType,omitempty"`
 	BillTo                   *BillTo `json:"billTo"`
 	Payment                  Payment `json:"payment"`
-	CustomerPaymentProfileID string  `json:"customerPaymentProfileId"`
 	DefaultPaymentProfile    bool    `json:"defaultPaymentProfile"`
+	CustomerPaymentProfileID string  `json:"customerPaymentProfileId"`
 }
 
 type UpdateCustomerShippingAddressRequest struct {

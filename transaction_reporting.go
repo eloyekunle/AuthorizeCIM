@@ -289,13 +289,10 @@ type FullTransaction struct {
 	PrepaidBalanceRemainingSpecified bool    `json:"prepaidBalanceRemainingSpecified"`
 	TaxExempt                        bool    `json:"taxExempt"`
 	TaxExemptSpecified               bool    `json:"taxExemptSpecified"`
-	Payment                          struct {
-		CreditCard  CreditCard  `json:"creditCard"`
-		BankAccount BankAccount `json:"bankAccount"`
-	} `json:"payment"`
-	RecurringBilling          bool `json:"recurringBilling"`
-	RecurringBillingSpecified bool `json:"recurringBillingSpecified"`
-	ReturnedItems             []struct {
+	Payment                          Payment `json:"payment"`
+	RecurringBilling                 bool    `json:"recurringBilling"`
+	RecurringBillingSpecified        bool    `json:"recurringBillingSpecified"`
+	ReturnedItems                    []struct {
 		ID          string    `json:"id"`
 		DateUTC     time.Time `json:"dateUTC"`
 		DateLocal   string    `json:"dateLocal"`
