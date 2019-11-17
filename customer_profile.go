@@ -133,7 +133,7 @@ func ValidatePaymentProfile(customer Customer) (*ValidateCustomerPaymentProfileR
 			MerchantAuthentication:   GetAuthentication(),
 			CustomerProfileID:        customer.ID,
 			CustomerPaymentProfileID: customer.PaymentID,
-			ValidationMode:           testMode,
+			ValidationMode:           validationMode,
 		},
 	}
 	jsoned, err := json.Marshal(action)
@@ -182,9 +182,14 @@ func CreateProfile(profile Profile) (*CustomProfileResponse, error) {
 		CreateCustomerProfile: CreateCustomerProfile{
 			MerchantAuthentication: GetAuthentication(),
 			Profile:                profile,
-			ValidationMode:         testMode,
+			ValidationMode:         validationMode,
 		},
 	}
+
+	if profile.PaymentProfile == nil || profile.PaymentProfiles == nil {
+		action.CreateCustomerProfile.ValidationMode = "none"
+	}
+
 	jsoned, err := json.Marshal(action)
 	if err != nil {
 		return nil, err
@@ -251,7 +256,7 @@ func UpdatePaymentProfile(profile Profile) (*MessagesResponse, error) {
 				DefaultPaymentProfile:    profile.PaymentProfiles.DefaultPaymentProfile,
 				CustomerPaymentProfileID: profile.PaymentProfileId,
 			},
-			ValidationMode: testMode,
+			ValidationMode: validationMode,
 		},
 	}
 	dat, err := MessageResponder(action)

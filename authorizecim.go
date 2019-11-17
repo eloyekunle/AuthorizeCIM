@@ -10,7 +10,7 @@ import (
 var api_endpoint string = "https://apitest.authorize.net/xml/v1/request.api"
 var apiName *string
 var apiKey *string
-var testMode string
+var validationMode string
 var showLogs = false
 var connected = false
 
@@ -18,10 +18,10 @@ func SetAPIInfo(name string, key string, mode string) {
 	apiKey = &key
 	apiName = &name
 	if mode == "live" {
-		testMode = "liveMode"
+		validationMode = "liveMode"
 		api_endpoint = "https://api.authorize.net/xml/v1/request.api"
 	} else {
-		testMode = "testMode"
+		validationMode = "testMode"
 		api_endpoint = "https://apitest.authorize.net/xml/v1/request.api"
 	}
 }
