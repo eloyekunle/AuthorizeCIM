@@ -6,11 +6,12 @@ import (
 
 func (tranx NewTransaction) Charge() (*TransactionResponse, error) {
 	transactionRequest := TransactionRequest{
-		TransactionType: "authCaptureTransaction",
-		Amount:          tranx.Amount,
-		Payment:         tranx.Payment,
-		BillTo:          tranx.BillTo,
-		AuthCode:        tranx.AuthCode,
+		TransactionType:     "authCaptureTransaction",
+		Amount:              tranx.Amount,
+		Payment:             tranx.Payment,
+		BillTo:              tranx.BillTo,
+		AuthCode:            tranx.AuthCode,
+		TransactionSettings: tranx.TransactionSettings,
 	}
 	response, err := SendTransactionRequest(transactionRequest)
 	return response, err
@@ -26,6 +27,7 @@ func (tranx NewTransaction) ChargeProfile(profile Customer) (*TransactionRespons
 				PaymentProfileId: profile.PaymentID,
 			},
 		},
+		TransactionSettings: tranx.TransactionSettings,
 	}
 	response, err := SendTransactionRequest(transactionRequest)
 	return response, err
@@ -33,9 +35,10 @@ func (tranx NewTransaction) ChargeProfile(profile Customer) (*TransactionRespons
 
 func (tranx NewTransaction) AuthOnly() (*TransactionResponse, error) {
 	transactionRequest := TransactionRequest{
-		TransactionType: "authOnlyTransaction",
-		Amount:          tranx.Amount,
-		Payment:         tranx.Payment,
+		TransactionType:     "authOnlyTransaction",
+		Amount:              tranx.Amount,
+		Payment:             tranx.Payment,
+		TransactionSettings: tranx.TransactionSettings,
 	}
 	response, err := SendTransactionRequest(transactionRequest)
 	return response, err
@@ -43,10 +46,11 @@ func (tranx NewTransaction) AuthOnly() (*TransactionResponse, error) {
 
 func (tranx NewTransaction) Refund() (*TransactionResponse, error) {
 	transactionRequest := TransactionRequest{
-		TransactionType: "refundTransaction",
-		Amount:          tranx.Amount,
-		RefTransId:      tranx.RefTransId,
-		Payment:         tranx.Payment,
+		TransactionType:     "refundTransaction",
+		Amount:              tranx.Amount,
+		RefTransId:          tranx.RefTransId,
+		Payment:             tranx.Payment,
+		TransactionSettings: tranx.TransactionSettings,
 	}
 	response, err := SendTransactionRequest(transactionRequest)
 	return response, err
@@ -122,12 +126,13 @@ func SendTransactionRequest(input TransactionRequest) (*TransactionResponse, err
 }
 
 type NewTransaction struct {
-	Amount     string   `json:"amount,omitempty"`
-	InvoiceId  string   `json:"invoiceId,omitempty"`
-	RefTransId string   `json:"refTransId,omitempty"`
-	Payment    *Payment `json:"payment,omitempty"`
-	AuthCode   string   `json:"authCode,omitempty"`
-	BillTo     *BillTo  `json:"omitempty"`
+	Amount              string              `json:"amount,omitempty"`
+	InvoiceId           string              `json:"invoiceId,omitempty"`
+	RefTransId          string              `json:"refTransId,omitempty"`
+	Payment             *Payment            `json:"payment,omitempty"`
+	AuthCode            string              `json:"authCode,omitempty"`
+	BillTo              *BillTo             `json:"omitempty"`
+	TransactionSettings TransactionSettings `json:"transactionSettings,omitempty"`
 }
 
 type PreviousTransaction struct {
