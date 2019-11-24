@@ -262,10 +262,10 @@ type TransactionRequest struct {
 	//Shipping            Shipping            `json:"shipping,omitempty"`
 	//PoNumber            string              `json:"poNumber,omitempty"`
 	//Customer            Customer            `json:"customer,omitempty"`
-	BillTo     *BillTo          `json:"billTo,omitempty"`
-	ShipTo     *CustomerAddress `json:"shipTo,omitempty"`
-	CustomerIP string           `json:"customerIP,omitempty"`
-	//TransactionSettings TransactionSettings `json:"transactionSettings,omitempty"`
+	BillTo              *BillTo             `json:"billTo,omitempty"`
+	ShipTo              *CustomerAddress    `json:"shipTo,omitempty"`
+	CustomerIP          string              `json:"customerIP,omitempty"`
+	TransactionSettings TransactionSettings `json:"transactionSettings,omitempty"`
 	//UserFields          UserFields          `json:"userFields,omitempty"`
 }
 
